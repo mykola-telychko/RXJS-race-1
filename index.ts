@@ -26,8 +26,8 @@ function getRandInt(min, max) {
 // expl - 3
 //take the first observable to emit
 const src = race(
-  interval(getRandInt(500, 1000)).pipe(mapTo('2s won!')),
-  interval(getRandInt(1000, 3000)).pipe(mapTo('1s won!'))
+  interval(getRandInt(1500, 3000)).pipe(mapTo('2s won!')),
+  interval(getRandInt(1500, 3000)).pipe(mapTo('1s won!'))
 );
 
 const subscribe = src.subscribe((val) => console.log(val));
