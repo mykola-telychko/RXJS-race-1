@@ -1,33 +1,26 @@
 import { mapTo } from 'rxjs/operators';
 import { interval, race } from 'rxjs';
 
-// https://www.learnrxjs.io/learn-rxjs/operators/combination/race
-
+/**
+ * Generates a random integer within the given range.
+ * @param {number} min - The minimum value (inclusive).
+ * @param {number} max - The maximum value (inclusive).
+ * @returns {number} A random integer between min and max.
+ */
 function getRandInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-// old // expl - 1
-// interval(1500),
-// interval(1000).pipe(mapTo('1s won!')),
-// interval(2000),
-// interval(2500)
-
-// expl - 2
-//take the first observable to emit
-// const src = race(
-//   interval(2500).pipe(mapTo('2s won!')),
-//   interval(3500).pipe(mapTo('1s won!'))
-// );
-
-// interval(5000),
-// interval(3500)
-
-// expl - 3
-//take the first observable to emit
+/**
+ * Creates a race condition between two interval observables.
+ * The first observable to emit wins.
+ */
 const src = race(
   interval(getRandInt(1500, 3000)).pipe(mapTo('2s won!')),
   interval(getRandInt(1000, 2000)).pipe(mapTo('1s won!'))
 );
 
+/**
+ * Subscribes to the race observable and logs the winning value.
+ */
 const subscribe = src.subscribe((val) => console.log(val));
